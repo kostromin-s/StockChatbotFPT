@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv("BAZAAR_API_KEY")
+API_KEY = os.getenv("GRSK")
 scaler = joblib.load("ohlc_scaler.gz")
 
 app = FastAPI()
@@ -31,13 +31,13 @@ app.add_middleware(
 
 # ====== OPENAI COMPATIBLE CLIENT (BAZAARLINK) ======
 client = OpenAI(
-    base_url="https://bazaarlink.ai/api/v1",
+    base_url="https://api.groq.com/openai/v1",
     api_key=API_KEY,
 )
 
 class ChatRequest(BaseModel):
     messages: list
-    model: str = "openai/gpt-4o-mini"
+    model: str = "llama-3.1-8b-instant"
 
 
 # ====== DATA ======
@@ -67,7 +67,7 @@ def load_data():
 
 
 # ====== CHAT ======
-def chat_with_api(messages, model="openai/gpt-4o-mini"):
+def chat_with_api(messages, model="llama-3.1-8b-instant"):
     data = load_data()
     prediction = predict_next_5_days("FPT")
 

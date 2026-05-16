@@ -58,7 +58,7 @@ export function useChatStore() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'openai/gpt-4o-mini',
+        model: 'llama-3.1-8b-instant',
         messages: chatMessages,
       }),
     })
@@ -92,7 +92,7 @@ Không thể kết nối tới FastAPI server.
 Hãy kiểm tra:
 
 \`\`\`bash
-curl -X POST ${import.meta.env.VITE_API_URL}/chat -H "Content-Type: application/json" -d '{"model":"openai/gpt-4o-mini","messages":[{"role":"user","content":"Hello"}]}'
+curl -X POST ${import.meta.env.VITE_API_URL}/chat -H "Content-Type: application/json" -d '{"model":"llama-3.1-8b-instant","messages":[{"role":"user","content":"Hello"}]}'
 \`\`\`
       `,
       timestamp: new Date(),
