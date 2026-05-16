@@ -51,14 +51,14 @@ export function useChatStore() {
       },
     ]
 
-    // Gọi backend FastAPI
-    const response = await fetch(process.env.REACT_APP_BACKEND_URL + '/chat' || 'http://localhost:8000/chat', {
+    // Gọi backend FastAPI 
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'openai/gpt-4o-mini', // Hoặc model bạn muốn dùng
+        model: 'openai/gpt-4o-mini',
         messages: chatMessages,
       }),
     })
@@ -86,7 +86,14 @@ export function useChatStore() {
       role: 'assistant',
       content: `
 ## ❌ Lỗi kết nối backend
+
 Không thể kết nối tới FastAPI server.
+
+Hãy kiểm tra:
+
+\`\`\`bash
+curl -X POST ${import.meta.env.VITE_API_URL}/chat -H "Content-Type: application/json" -d '{"model":"openai/gpt-4o-mini","messages":[{"role":"user","content":"Hello"}]}'
+\`\`\`
       `,
       timestamp: new Date(),
       isError: true,
