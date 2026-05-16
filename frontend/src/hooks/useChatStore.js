@@ -52,7 +52,7 @@ export function useChatStore() {
     ]
 
     // Gọi backend FastAPI
-    const response = await fetch('http://localhost:8000/chat', {
+    const response = await fetch(process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -86,25 +86,7 @@ export function useChatStore() {
       role: 'assistant',
       content: `
 ## ❌ Lỗi kết nối backend
-
 Không thể kết nối tới FastAPI server.
-
-Hãy kiểm tra:
-
-1. Backend đã chạy:
-\`\`\`bash
-uvicorn main:app --reload
-\`\`\`
-
-2. Backend chạy ở:
-\`\`\`
-http://localhost:8000
-\`\`\`
-
-3. Ollama đang chạy:
-\`\`\`bash
-ollama serve
-\`\`\`
       `,
       timestamp: new Date(),
       isError: true,
